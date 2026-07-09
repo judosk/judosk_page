@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>부동산 뉴스 & 소식 | 대신부동산</title>
+<meta name="description" content="대신부동산이 전하는 중계동 부동산 뉴스, 정책 정보, 시장 동향을 확인하세요."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<style>
+body { font-family: 'Pretendard', sans-serif; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.bento-card-hover { transition: transform 0.2s cubic-bezier(0.2,0,0,1), box-shadow 0.2s cubic-bezier(0.2,0,0,1); }
+.bento-card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,91,177,0.08); }
+</style>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-variant": "#dfe3e7", "primary-tint": "#edf5ff",
+        "surface": "#f6fafe", "primary": "#005bb1", "on-background": "#171c1f",
+        "on-surface-variant": "#414753", "secondary-container": "#dce3ed",
+        "muted-text": "#677583", "background": "#f6fafe",
+        "on-secondary-container": "#5e656d", "on-primary": "#ffffff",
+        "surface-alt": "#f9f9f9", "surface-container": "#eaeef2",
+        "surface-container-high": "#e4e9ed", "ink": "#1a2128",
+        "on-secondary": "#ffffff", "secondary": "#585f67",
+        "surface-container-low": "#f0f4f8", "hairline": "#e2e5e9",
+        "outline-variant": "#c1c6d5", "surface-container-lowest": "#ffffff",
+        "primary-container": "#0073dd", "on-primary-container": "#fefcff",
+        "on-surface": "#171c1f"
+      },
+      borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+      spacing: {
+        "md": "16px", "xl": "48px", "xs": "4px", "sm": "8px",
+        "margin-mobile": "16px", "lg": "24px", "margin-desktop": "64px",
+        "base": "8px", "gutter": "24px"
+      },
+      fontFamily: { "body-md": ["Pretendard"], "caption": ["Pretendard"], "section-title": ["Pretendard"] },
+      fontSize: {
+        "ui-label-bold": ["14px",{"lineHeight":"1.2","fontWeight":"700"}],
+        "body-md": ["16px",{"lineHeight":"1.5","fontWeight":"400"}],
+        "caption": ["12px",{"lineHeight":"1.4","fontWeight":"400"}],
+        "section-title": ["36px",{"lineHeight":"1.4","fontWeight":"700"}],
+        "card-title": ["24px",{"lineHeight":"1.4","fontWeight":"700"}]
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<header class="sticky top-0 w-full z-50 bg-surface border-b border-hairline shadow-sm">
+  <nav class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+    <div class="flex items-center gap-xl">
+      <a class="text-2xl font-bold text-primary" href="index.html">대신부동산</a>
+      <div class="hidden md:flex gap-lg">
+        <a class="text-secondary font-medium hover:text-primary transition-colors" href="index.html">매물찾기</a>
+        <a class="text-primary font-bold border-b-2 border-primary pb-1" href="news.html">지역소식</a>
+        <a class="text-secondary font-medium hover:text-primary transition-colors" href="index.html#experts">전문가소개</a>
+        <a class="text-secondary font-medium hover:text-primary transition-colors" href="#">고객후기</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-md">
+      <a class="hidden lg:flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded-lg font-bold min-h-[44px] hover:opacity-90 transition-all" href="tel:02-951-4900">
+        <span class="material-symbols-outlined text-[20px]">call</span> 전화 상담
+      </a>
+      <button class="md:hidden text-primary min-h-[44px] min-w-[44px] flex items-center justify-center" id="menu-btn">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main class="pt-6 pb-24 md:pb-xl px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+  <section class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-lg">
+    <div class="space-y-sm">
+      <h1 class="text-section-title font-bold text-ink">부동산 뉴스 &amp; 소식</h1>
+      <p class="text-body-md text-muted-text max-w-2xl">25년 전통의 대신부동산이 전해드리는 중계동 현장의 생생한 소식과 정확한 정책 분석입니다.</p>
+    </div>
+    <div class="relative w-full md:w-96">
+      <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-muted-text">search</span>
+      <input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-hairline rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-base min-h-[44px]" id="search-input" placeholder="관심 키워드를 검색해보세요" type="text"/>
+    </div>
+  </section>
+
+  <div class="flex gap-sm mb-lg overflow-x-auto pb-2" id="category-tabs">
+    <button class="px-6 py-2 bg-primary text-on-primary rounded-full font-bold whitespace-nowrap min-h-[44px] category-btn active" data-cat="전체">전체</button>
+    <button class="px-6 py-2 bg-surface-container-low text-secondary font-bold hover:bg-surface-variant transition-colors rounded-full whitespace-nowrap min-h-[44px] category-btn" data-cat="정책">정책</button>
+    <button class="px-6 py-2 bg-surface-container-low text-secondary font-bold hover:bg-surface-variant transition-colors rounded-full whitespace-nowrap min-h-[44px] category-btn" data-cat="지역소식">지역소식</button>
+    <button class="px-6 py-2 bg-surface-container-low text-secondary font-bold hover:bg-surface-variant transition-colors rounded-full whitespace-nowrap min-h-[44px] category-btn" data-cat="시장동향">시장동향</button>
+    <button class="px-6 py-2 bg-surface-container-low text-secondary font-bold hover:bg-surface-variant transition-colors rounded-full whitespace-nowrap min-h-[44px] category-btn" data-cat="단지정보">단지정보</button>
+    <button class="px-6 py-2 bg-surface-container-low text-secondary font-bold hover:bg-surface-variant transition-colors rounded-full whitespace-nowrap min-h-[44px] category-btn" data-cat="전문가칼럼">전문가칼럼</button>
+  </div>
+
+  <div id="news-list">
+    <div class="flex flex-col items-center justify-center py-xl text-muted-text gap-md" id="loading-state">
+      <span class="material-symbols-outlined text-[48px] animate-spin">progress_activity</span>
+      <p>게시글을 불러오는 중입니다...</p>
+    </div>
+  </div>
+</main>
+
+<div class="fixed bottom-margin-mobile right-margin-mobile md:bottom-lg md:right-lg z-50 flex flex-col items-end gap-sm">
+  <div class="bg-ink text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg opacity-0 translate-y-2 transition-all duration-300" id="callTooltip">25년 전통의 전문 상담: 02-951-4900</div>
+  <a href="tel:02-951-4900" class="w-16 h-16 bg-[#469f68] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-transform"
+    onmouseover="document.getElementById('callTooltip').classList.add('opacity-100','translate-y-0');document.getElementById('callTooltip').classList.remove('opacity-0','translate-y-2')"
+    onmouseout="document.getElementById('callTooltip').classList.add('opacity-0','translate-y-2');document.getElementById('callTooltip').classList.remove('opacity-100','translate-y-0')">
+    <span class="material-symbols-outlined text-[32px]">call</span>
+  </a>
+</div>
+
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe bg-surface border-t border-hairline shadow-lg md:hidden z-50">
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="index.html">
+    <span class="material-symbols-outlined">home</span><span class="text-[10px]">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="#">
+    <span class="material-symbols-outlined">apartment</span><span class="text-[10px]">매물</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-primary font-bold min-h-[44px] min-w-[44px]" href="news.html">
+    <span class="material-symbols-outlined">newspaper</span><span class="text-[10px]">소식</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="tel:02-951-4900">
+    <span class="material-symbols-outlined">call</span><span class="text-[10px]">상담</span>
+  </a>
+</nav>
+
+<footer class="w-full py-xl px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-base bg-surface-container-low border-t border-hairline mt-xl mb-16 md:mb-0">
+  <div class="flex flex-col items-center md:items-start gap-sm">
+    <span class="font-bold text-secondary">대신부동산</span>
+    <p class="text-xs text-muted-text text-center md:text-left">© 2024 노원구 중계동 대신부동산. All rights reserved.</p>
+  </div>
+  <div class="flex gap-lg">
+    <a class="text-muted-text text-xs hover:text-on-surface" href="#">이용약관</a>
+    <a class="text-muted-text text-xs hover:text-on-surface" href="#">개인정보처리방침</a>
+    <a class="text-muted-text text-xs hover:text-on-surface" href="#">찾아오시는길</a>
+    <a class="text-primary font-bold text-xs hover:text-on-surface" href="admin.html" id="agent-login-btn">Agent Login</a>
+  </div>
+</footer>
+
+<script src="db.js"></script>
+<script>
+const CATEGORY_COLORS = {
+  '정책': 'bg-blue-100 text-blue-700',
+  '지역소식': 'bg-green-100 text-green-700',
+  '시장동향': 'bg-orange-100 text-orange-700',
+  '단지정보': 'bg-purple-100 text-purple-700',
+  '전문가칼럼': 'bg-pink-100 text-pink-700'
+};
+
+let allPosts = [];
+let activeCat = '전체';
+let searchQuery = '';
+
+function getColor(cat) {
+  return CATEGORY_COLORS[cat] || 'bg-gray-100 text-gray-700';
+}
+
+function renderList() {
+  const filtered = allPosts.filter(p => {
+    const matchCat = activeCat === '전체' || p.category === activeCat;
+    const q = searchQuery.trim().toLowerCase();
+    const matchQ = !q || (p.title || '').toLowerCase().includes(q) || markdownToText(p.content || '').toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  const container = document.getElementById('news-list');
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="flex flex-col items-center justify-center py-xl text-muted-text gap-md">
+      <span class="material-symbols-outlined text-[48px]">search_off</span>
+      <p class="text-lg font-medium">게시글이 없습니다.</p>
+      ${isAdmin() ? `<a href="news-write.html" class="px-lg py-sm bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">첫 글 작성하기</a>` : ''}
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    ${filtered.map((post, i) => {
+      const summary = markdownToText(post.content || '').slice(0, 80);
+      const color = getColor(post.category);
+      if (i === 0) {
+        return `<article class="lg:col-span-2 bento-card-hover bg-white border border-hairline rounded-xl overflow-hidden cursor-pointer" onclick="location.href='news-detail.html?id=${post.id}'">
+          <div class="flex flex-col md:flex-row h-full">
+            <div class="md:w-1/2 relative bg-surface-container-low flex items-center justify-center h-48 md:h-auto">
+              <span class="material-symbols-outlined text-[80px] text-primary/20">article</span>
+              <div class="absolute top-4 left-4"><span class="px-3 py-1 bg-primary text-white text-xs font-bold rounded-full">LATEST</span></div>
+            </div>
+            <div class="p-lg md:w-1/2 flex flex-col justify-between">
+              <div>
+                <div class="flex gap-sm mb-md">
+                  <span class="px-2 py-0.5 rounded text-xs font-bold ${color}">${escapeHtml(post.category || '소식')}</span>
+                  <span class="text-muted-text text-xs">${escapeHtml(post.date || '')}</span>
+                </div>
+                <h2 class="text-2xl font-bold text-ink mb-md leading-tight hover:text-primary transition-colors">${escapeHtml(post.title || '')}</h2>
+                <p class="text-muted-text text-sm line-clamp-3">${escapeHtml(summary)}${summary.length >= 80 ? '…' : ''}</p>
+              </div>
+              <div class="mt-lg flex items-center justify-between">
+                <span class="text-xs text-muted-text">대신부동산</span>
+                <span class="material-symbols-outlined text-primary">arrow_forward</span>
+              </div>
+            </div>
+          </div>
+        </article>`;
+      }
+      return `<article class="bento-card-hover bg-white border border-hairline rounded-xl overflow-hidden cursor-pointer" onclick="location.href='news-detail.html?id=${post.id}'">
+        <div class="h-40 bg-surface-container-low flex items-center justify-center">
+          <span class="material-symbols-outlined text-[56px] text-primary/20">article</span>
+        </div>
+        <div class="p-md">
+          <div class="flex gap-sm mb-sm">
+            <span class="px-2 py-0.5 rounded text-xs font-bold ${color}">${escapeHtml(post.category || '소식')}</span>
+            <span class="text-muted-text text-xs">${escapeHtml(post.date || '')}</span>
+          </div>
+          <h3 class="font-bold text-base text-ink mb-sm line-clamp-2 hover:text-primary transition-colors">${escapeHtml(post.title || '')}</h3>
+          <p class="text-xs text-muted-text line-clamp-2">${escapeHtml(summary)}${summary.length >= 80 ? '…' : ''}</p>
+        </div>
+      </article>`;
+    }).join('')}
+    ${isAdmin() ? `<article class="bento-card-hover border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center p-lg cursor-pointer hover:bg-primary-tint transition-colors min-h-[200px]" onclick="location.href='news-write.html'">
+      <span class="material-symbols-outlined text-[40px] text-primary/50 mb-sm">add_circle</span>
+      <p class="text-primary/70 font-bold">새 글 작성</p>
+    </article>` : ''}
+  </div>`;
+}
+
+document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeCat = btn.dataset.cat;
+    document.querySelectorAll('.category-btn').forEach(b => {
+      b.classList.remove('bg-primary', 'text-on-primary');
+      b.classList.add('bg-surface-container-low', 'text-secondary');
+    });
+    btn.classList.add('bg-primary', 'text-on-primary');
+    btn.classList.remove('bg-surface-container-low', 'text-secondary');
+    renderList();
+  });
+});
+
+let searchTimer;
+document.getElementById('search-input').addEventListener('input', (e) => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    searchQuery = e.target.value;
+    renderList();
+  }, 300);
+});
+
+(async () => {
+  allPosts = await getPosts();
+  document.getElementById('loading-state')?.remove();
+  renderList();
+})();
+</script>
+</body>
+</html>

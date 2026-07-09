@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>글쓰기 | 대신부동산</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<style>
+body { font-family: 'Pretendard', sans-serif; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+textarea { resize: vertical; }
+</style>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface": "#f6fafe", "primary": "#005bb1", "on-primary": "#ffffff",
+        "surface-container-low": "#f0f4f8", "surface-container-lowest": "#ffffff",
+        "ink": "#1a2128", "muted-text": "#677583", "hairline": "#e2e5e9",
+        "secondary": "#585f67", "on-surface": "#171c1f", "primary-tint": "#edf5ff"
+      },
+      borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+      spacing: {
+        "md": "16px", "xl": "48px", "xs": "4px", "sm": "8px",
+        "margin-mobile": "16px", "lg": "24px", "margin-desktop": "64px", "gutter": "24px"
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<header class="sticky top-0 w-full z-50 bg-surface border-b border-hairline shadow-sm">
+  <nav class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+    <a class="text-2xl font-bold text-primary" href="index.html">대신부동산</a>
+    <a class="flex items-center gap-xs text-secondary hover:text-primary transition-colors min-h-[44px]" href="news.html">
+      <span class="material-symbols-outlined">close</span> <span class="hidden md:inline">취소</span>
+    </a>
+  </nav>
+</header>
+
+<main class="max-w-3xl mx-auto px-margin-mobile md:px-gutter py-xl">
+  <div class="mb-xl">
+    <h1 class="text-3xl font-bold text-ink mb-xs" id="page-title">새 글 작성</h1>
+    <p class="text-muted-text text-sm">마크다운 형식으로 작성할 수 있습니다.</p>
+  </div>
+
+  <form id="write-form" class="space-y-lg" novalidate>
+    <div>
+      <label class="block text-sm font-bold text-ink mb-sm" for="post-title">제목 <span class="text-red-500">*</span></label>
+      <input class="w-full px-md py-sm border border-hairline rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-base min-h-[44px] bg-surface-container-lowest" id="post-title" placeholder="제목을 입력하세요" required type="text"/>
+    </div>
+
+    <div class="grid grid-cols-2 gap-md">
+      <div>
+        <label class="block text-sm font-bold text-ink mb-sm" for="post-category">카테고리 <span class="text-red-500">*</span></label>
+        <select class="w-full px-md py-sm border border-hairline rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-base min-h-[44px] bg-surface-container-lowest" id="post-category" required>
+          <option value="">카테고리 선택</option>
+          <option value="정책">정책</option>
+          <option value="지역소식">지역소식</option>
+          <option value="시장동향">시장동향</option>
+          <option value="단지정보">단지정보</option>
+          <option value="전문가칼럼">전문가칼럼</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-ink mb-sm" for="post-date">날짜</label>
+        <input class="w-full px-md py-sm border border-hairline rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-base min-h-[44px] bg-surface-container-lowest" id="post-date" type="date"/>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-bold text-ink mb-sm" for="post-content">본문 <span class="text-red-500">*</span></label>
+      <div class="text-xs text-muted-text mb-sm flex flex-wrap gap-sm">
+        <span class="bg-surface-container-low px-2 py-0.5 rounded font-mono"># 제목</span>
+        <span class="bg-surface-container-low px-2 py-0.5 rounded font-mono">**굵게**</span>
+        <span class="bg-surface-container-low px-2 py-0.5 rounded font-mono">*기울임*</span>
+        <span class="bg-surface-container-low px-2 py-0.5 rounded font-mono">- 목록</span>
+        <span class="bg-surface-container-low px-2 py-0.5 rounded font-mono">&gt; 인용</span>
+        <span class="bg-surface-container-low px-2 py-0.5 rounded font-mono">```코드```</span>
+      </div>
+      <textarea class="w-full px-md py-sm border border-hairline rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-base font-mono bg-surface-container-lowest leading-relaxed" id="post-content" placeholder="본문 내용을 마크다운으로 입력하세요..." required rows="16"></textarea>
+    </div>
+
+    <div id="preview-section" class="hidden">
+      <div class="flex items-center justify-between mb-sm">
+        <label class="text-sm font-bold text-ink">미리보기</label>
+        <button class="text-xs text-muted-text hover:text-primary" id="hide-preview" type="button">닫기</button>
+      </div>
+      <div class="border border-hairline rounded-xl p-lg bg-surface-container-lowest min-h-[200px] prose text-on-surface text-base leading-relaxed" id="preview-area"></div>
+    </div>
+
+    <div class="flex items-center gap-md flex-wrap">
+      <button class="flex-1 md:flex-none px-xl py-sm bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 active:scale-95 transition-all min-h-[44px] flex items-center justify-center gap-xs" id="submit-btn" type="submit">
+        <span class="material-symbols-outlined text-[20px]">save</span> <span id="submit-label">저장하기</span>
+      </button>
+      <button class="flex-1 md:flex-none px-xl py-sm bg-surface-container-low text-secondary rounded-xl font-bold hover:bg-surface-variant transition-colors min-h-[44px]" id="preview-btn" type="button">미리보기</button>
+      <a class="flex-1 md:flex-none px-xl py-sm border border-hairline text-secondary rounded-xl font-bold hover:bg-surface-container-low transition-colors min-h-[44px] text-center" href="news.html">취소</a>
+    </div>
+
+    <p class="text-red-500 text-sm hidden" id="error-msg"></p>
+  </form>
+</main>
+
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe bg-surface border-t border-hairline shadow-lg md:hidden z-50">
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="index.html">
+    <span class="material-symbols-outlined">home</span><span class="text-[10px]">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-primary font-bold min-h-[44px] min-w-[44px]" href="news.html">
+    <span class="material-symbols-outlined">newspaper</span><span class="text-[10px]">소식</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="admin.html">
+    <span class="material-symbols-outlined">admin_panel_settings</span><span class="text-[10px]">관리</span>
+  </a>
+</nav>
+
+<script src="db.js"></script>
+<script>
+requireAdmin();
+
+const params = new URLSearchParams(location.search);
+const editId = params.get('id');
+let currentPost = null;
+
+document.getElementById('post-date').value = new Date().toISOString().split('T')[0];
+
+(async () => {
+  if (!editId) return;
+  document.getElementById('page-title').textContent = '게시글 수정';
+  document.getElementById('submit-label').textContent = '수정 저장';
+  currentPost = await getPost(editId);
+  if (!currentPost) { alert('게시글을 찾을 수 없습니다.'); location.href = 'news.html'; return; }
+  document.getElementById('post-title').value = currentPost.title || '';
+  document.getElementById('post-category').value = currentPost.category || '';
+  document.getElementById('post-date').value = currentPost.date || '';
+  document.getElementById('post-content').value = currentPost.content || '';
+})();
+
+document.getElementById('preview-btn').addEventListener('click', () => {
+  const content = document.getElementById('post-content').value;
+  document.getElementById('preview-area').innerHTML = renderMarkdown(content);
+  document.getElementById('preview-section').classList.remove('hidden');
+});
+
+document.getElementById('hide-preview').addEventListener('click', () => {
+  document.getElementById('preview-section').classList.add('hidden');
+});
+
+document.getElementById('write-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('post-title').value.trim();
+  const category = document.getElementById('post-category').value;
+  const date = document.getElementById('post-date').value;
+  const content = document.getElementById('post-content').value.trim();
+  const errMsg = document.getElementById('error-msg');
+  const submitBtn = document.getElementById('submit-btn');
+
+  errMsg.classList.add('hidden');
+  if (!title) { errMsg.textContent = '제목을 입력해 주세요.'; errMsg.classList.remove('hidden'); return; }
+  if (!category) { errMsg.textContent = '카테고리를 선택해 주세요.'; errMsg.classList.remove('hidden'); return; }
+  if (!content) { errMsg.textContent = '본문을 입력해 주세요.'; errMsg.classList.remove('hidden'); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.querySelector('#submit-label').textContent = '저장 중...';
+
+  const post = {
+    id: editId || null,
+    title,
+    category,
+    date: date || new Date().toISOString().split('T')[0],
+    content
+  };
+
+  try {
+    const saved = await savePost(post);
+    location.href = 'news-detail.html?id=' + saved.id;
+  } catch(err) {
+    errMsg.textContent = '저장 실패: ' + err.message;
+    errMsg.classList.remove('hidden');
+    submitBtn.disabled = false;
+    document.getElementById('submit-label').textContent = editId ? '수정 저장' : '저장하기';
+  }
+});
+</script>
+</body>
+</html>

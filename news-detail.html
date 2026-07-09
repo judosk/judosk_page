@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>게시글 상세 | 대신부동산</title>
+<meta name="description" content="대신부동산 게시글 상세보기"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<style>
+body { font-family: 'Pretendard', sans-serif; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.prose h1,.prose h2,.prose h3,.prose h4,.prose h5,.prose h6 { color: #1a2128; }
+.prose a { color: #005bb1; }
+.prose blockquote { border-left-color: #005bb1; }
+</style>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface": "#f6fafe", "primary": "#005bb1", "on-primary": "#ffffff",
+        "surface-container-low": "#f0f4f8", "surface-container-lowest": "#ffffff",
+        "ink": "#1a2128", "muted-text": "#677583", "hairline": "#e2e5e9",
+        "secondary": "#585f67", "on-surface": "#171c1f", "primary-tint": "#edf5ff"
+      },
+      borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+      spacing: {
+        "md": "16px", "xl": "48px", "xs": "4px", "sm": "8px",
+        "margin-mobile": "16px", "lg": "24px", "margin-desktop": "64px", "gutter": "24px"
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<header class="sticky top-0 w-full z-50 bg-surface border-b border-hairline shadow-sm">
+  <nav class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+    <a class="text-2xl font-bold text-primary" href="index.html">대신부동산</a>
+    <div class="flex items-center gap-md">
+      <a class="hidden md:flex items-center gap-xs text-secondary hover:text-primary transition-colors" href="news.html">
+        <span class="material-symbols-outlined">arrow_back</span> 목록으로
+      </a>
+      <a class="hidden lg:flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded-lg font-bold min-h-[44px] hover:opacity-90 transition-all" href="tel:02-951-4900">
+        <span class="material-symbols-outlined text-[20px]">call</span> 전화 상담
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main class="max-w-3xl mx-auto px-margin-mobile md:px-gutter py-xl pb-24 md:pb-xl">
+  <div id="post-content">
+    <div class="flex flex-col items-center justify-center py-xl text-muted-text gap-md">
+      <span class="material-symbols-outlined text-[48px] animate-spin">progress_activity</span>
+      <p>게시글을 불러오는 중입니다...</p>
+    </div>
+  </div>
+</main>
+
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe bg-surface border-t border-hairline shadow-lg md:hidden z-50">
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="index.html">
+    <span class="material-symbols-outlined">home</span><span class="text-[10px]">홈</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-primary font-bold min-h-[44px] min-w-[44px]" href="news.html">
+    <span class="material-symbols-outlined">newspaper</span><span class="text-[10px]">소식</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-secondary min-h-[44px] min-w-[44px]" href="tel:02-951-4900">
+    <span class="material-symbols-outlined">call</span><span class="text-[10px]">상담</span>
+  </a>
+</nav>
+
+<footer class="w-full py-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-sm bg-surface-container-low border-t border-hairline mt-xl mb-16 md:mb-0">
+  <p class="text-xs text-muted-text">© 2024 노원구 중계동 대신부동산. All rights reserved.</p>
+  <div class="flex gap-lg">
+    <a class="text-muted-text text-xs hover:text-on-surface" href="#">이용약관</a>
+    <a class="text-primary font-bold text-xs" href="admin.html" id="agent-login-btn">Agent Login</a>
+  </div>
+</footer>
+
+<script src="db.js"></script>
+<script>
+const CATEGORY_COLORS = {
+  '정책': 'bg-blue-100 text-blue-700',
+  '지역소식': 'bg-green-100 text-green-700',
+  '시장동향': 'bg-orange-100 text-orange-700',
+  '단지정보': 'bg-purple-100 text-purple-700',
+  '전문가칼럼': 'bg-pink-100 text-pink-700'
+};
+
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const container = document.getElementById('post-content');
+
+  if (!id) {
+    container.innerHTML = `<div class="text-center py-xl text-muted-text">
+      <span class="material-symbols-outlined text-[48px]">error</span>
+      <p class="mt-md text-lg">잘못된 접근입니다.</p>
+      <a href="news.html" class="mt-lg inline-block px-lg py-sm bg-primary text-white rounded-xl font-bold">목록으로</a>
+    </div>`;
+    return;
+  }
+
+  const post = await getPost(id);
+  if (!post) {
+    container.innerHTML = `<div class="text-center py-xl text-muted-text">
+      <span class="material-symbols-outlined text-[48px]">search_off</span>
+      <p class="mt-md text-lg">게시글을 찾을 수 없습니다.</p>
+      <a href="news.html" class="mt-lg inline-block px-lg py-sm bg-primary text-white rounded-xl font-bold">목록으로</a>
+    </div>`;
+    return;
+  }
+
+  document.title = `${post.title} | 대신부동산`;
+  const colorClass = CATEGORY_COLORS[post.category] || 'bg-gray-100 text-gray-700';
+  const adminBtns = isAdmin() ? `
+    <div class="flex gap-sm mt-xl pt-lg border-t border-hairline">
+      <a href="news-write.html?id=${post.id}" class="flex items-center gap-xs px-lg py-sm bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all min-h-[44px]">
+        <span class="material-symbols-outlined text-[18px]">edit</span> 수정
+      </a>
+      <button id="delete-btn" class="flex items-center gap-xs px-lg py-sm bg-red-500 text-white rounded-xl font-bold hover:opacity-90 transition-all min-h-[44px]">
+        <span class="material-symbols-outlined text-[18px]">delete</span> 삭제
+      </button>
+    </div>` : '';
+
+  container.innerHTML = `
+    <a href="news.html" class="inline-flex items-center gap-xs text-secondary hover:text-primary transition-colors mb-lg text-sm md:hidden">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span> 목록으로
+    </a>
+    <div class="flex items-center gap-sm mb-md">
+      <span class="px-3 py-1 rounded-full text-xs font-bold ${colorClass}">${escapeHtml(post.category || '소식')}</span>
+      <span class="text-xs text-muted-text">${escapeHtml(post.date || '')}</span>
+    </div>
+    <h1 class="text-3xl md:text-4xl font-bold text-ink mb-lg leading-tight">${escapeHtml(post.title || '')}</h1>
+    <div class="flex items-center gap-md mb-xl pb-lg border-b border-hairline text-sm text-muted-text">
+      <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">person</span> 대신부동산</span>
+      <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">calendar_today</span> ${escapeHtml(post.date || '')}</span>
+    </div>
+    <div class="prose text-base leading-relaxed text-on-surface">${renderMarkdown(post.content || '')}</div>
+    ${adminBtns}
+    <div class="mt-xl pt-lg border-t border-hairline">
+      <a href="news.html" class="inline-flex items-center gap-xs px-lg py-sm bg-surface-container-low text-secondary rounded-xl font-bold hover:bg-surface-variant transition-colors min-h-[44px]">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span> 목록으로 돌아가기
+      </a>
+    </div>`;
+
+  const deleteBtn = document.getElementById('delete-btn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async () => {
+      if (!confirm('이 게시글을 삭제하시겠습니까?')) return;
+      deleteBtn.disabled = true;
+      deleteBtn.textContent = '삭제 중...';
+      try {
+        await deletePost(post.id);
+        alert('삭제되었습니다.');
+        location.href = 'news.html';
+      } catch(e) {
+        alert('삭제 실패: ' + e.message);
+        deleteBtn.disabled = false;
+        deleteBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">delete</span> 삭제';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
