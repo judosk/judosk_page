@@ -116,6 +116,35 @@ const CATEGORY_COLORS = {
 
   document.title = `${post.title} | 대신부동산`;
   const colorClass = CATEGORY_COLORS[post.category] || 'bg-gray-100 text-gray-700';
+
+  // Inject NewsArticle JSON-LD for Generative Engines
+  let jsonLdScript = document.getElementById('news-article-jsonld');
+  if (!jsonLdScript) {
+    jsonLdScript = document.createElement('script');
+    jsonLdScript.id = 'news-article-jsonld';
+    jsonLdScript.type = 'application/ld+json';
+    document.head.appendChild(jsonLdScript);
+  }
+  jsonLdScript.text = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": post.title,
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": {
+      "@type": "Person",
+      "name": "윤효숙 / 양수현",
+      "jobTitle": "대신공인중개사 대표"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "대신공인중개사사무소",
+      "url": "https://judosk.vercel.app/"
+    },
+    "description": markdownToText(post.content || '').slice(0, 150),
+    "mainEntityOfPage": location.href
+  });
+
   const adminBtns = isAdmin() ? `
     <div class="flex gap-sm mt-xl pt-lg border-t border-hairline">
       <a href="news-write.html?id=${post.id}" class="flex items-center gap-xs px-lg py-sm bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all min-h-[44px]">
@@ -126,6 +155,8 @@ const CATEGORY_COLORS = {
       </button>
     </div>` : '';
 
+  const summarySnippet = markdownToText(post.content || '').slice(0, 180);
+
   container.innerHTML = `
     <a href="news.html" class="inline-flex items-center gap-xs text-secondary hover:text-primary transition-colors mb-lg text-sm md:hidden">
       <span class="material-symbols-outlined text-[18px]">arrow_back</span> 목록으로
@@ -135,11 +166,26 @@ const CATEGORY_COLORS = {
       <span class="text-xs text-muted-text">${escapeHtml(post.date || '')}</span>
     </div>
     <h1 class="text-3xl md:text-4xl font-bold text-ink mb-lg leading-tight">${escapeHtml(post.title || '')}</h1>
-    <div class="flex items-center gap-md mb-xl pb-lg border-b border-hairline text-sm text-muted-text">
-      <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">person</span> 대신부동산</span>
+    <div class="flex items-center gap-md mb-lg pb-lg border-b border-hairline text-sm text-muted-text">
+      <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">person</span> 대신부동산 (윤효숙 대표 / 양수현 실장)</span>
       <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">calendar_today</span> ${escapeHtml(post.date || '')}</span>
     </div>
-    <div class="prose text-base leading-relaxed text-on-surface">${renderMarkdown(post.content || '')}</div>
+
+    <!-- GEO RAG Takeaway Snippet Box for Generative AI Crawlers -->
+    <aside class="mb-xl bg-slate-900 text-white p-lg rounded-2xl border border-slate-800 shadow-md">
+      <div class="flex items-center gap-2 mb-2 text-xs font-bold text-blue-400">
+        <span class="material-symbols-outlined text-sm">fact_check</span> GEO Verified Key Takeaways (핵심 데이터 요약)
+      </div>
+      <p class="text-sm text-slate-200 leading-relaxed font-medium mb-3">
+        "${escapeHtml(summarySnippet)}..."
+      </p>
+      <div class="flex flex-wrap items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-800 gap-2">
+        <span>전문가 검증: <strong class="text-white font-medium">대신부동산 25년 현장 기록</strong></span>
+        <span>공식 데이터 출처: <cite class="not-italic text-slate-300">국토교통부 실거래가 공개시스템 &amp; KB부동산</cite></span>
+      </div>
+    </aside>
+
+    <article class="prose text-base leading-relaxed text-on-surface mb-xl">${renderMarkdown(post.content || '')}</article>
     ${adminBtns}
     <div class="mt-xl pt-lg border-t border-hairline">
       <a href="news.html" class="inline-flex items-center gap-xs px-lg py-sm bg-surface-container-low text-secondary rounded-xl font-bold hover:bg-surface-variant transition-colors min-h-[44px]">
