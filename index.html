@@ -194,10 +194,10 @@ tailwind.config = {
     </div>
   </aside>
 
-  <section class="relative min-h-[700px] flex items-center overflow-hidden py-xl">
+  <section class="relative min-h-[550px] md:min-h-[700px] flex items-center overflow-hidden py-xl">
     <div class="absolute inset-0 z-0">
-      <img alt="대신부동산 외관" class="w-full h-full object-cover" src="대신부동산_외관.jpg"/>
-      <div class="absolute inset-0 bg-black/30"></div>
+      <img alt="대신부동산 외관" class="w-full h-full object-cover object-[center_top]" src="대신부동산_외관.jpg"/>
+      <div class="absolute inset-0 bg-black/40"></div>
     </div>
     <div class="container mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
       <div class="max-w-lg glass-card p-lg rounded-2xl shadow-xl">
@@ -316,20 +316,38 @@ tailwind.config = {
   <section class="py-xl bg-surface-alt">
     <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
       <div class="text-center mb-xl">
-        <h2 class="text-3xl font-bold text-ink mb-md">쾌적하고 전문적인 상담 공간</h2>
-        <p class="text-body-md text-muted-text">고객님의 소중한 자산을 가장 안전하게 논의할 수 있는 대신부동산 내부를 소개합니다.</p>
+        <h2 class="text-3xl font-bold text-ink mb-md">대신부동산 외관 및 전문 상담 공간</h2>
+        <p class="text-body-md text-muted-text">중계동 중계주공5단지 상가 102호, 25년 전통 대신부동산의 전경과 내부를 소개합니다.</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-lg max-w-6xl mx-auto">
-        <div class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl">
-          <img alt="대신부동산 내부 게시판" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" style="max-width:100%;" src="대신부동산_내부_게시판.jpg"/>
-          <div class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/60 to-transparent">
-            <p class="text-white font-bold text-lg">최신 단지 정보 및 공인 인증서</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-lg max-w-6xl mx-auto">
+        <!-- Card 1: Exterior Signboard Photo (Full view on Mobile) -->
+        <div class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl bg-slate-900 flex flex-col justify-center">
+          <div class="w-full h-[320px] md:h-[380px] bg-slate-900 flex items-center justify-center p-2">
+            <img alt="대신부동산 외관 및 간판 전경" class="w-full h-full object-contain md:object-cover transition-transform duration-700 group-hover:scale-105 rounded-xl" src="대신부동산_외관.jpg"/>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+            <p class="text-white font-bold text-lg">대신부동산 전면 간판 및 외관</p>
+            <p class="text-xs text-slate-300">중계주공5단지 상가 102호 (모바일 완벽 맞춤 전경)</p>
           </div>
         </div>
-        <div class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl">
-          <img alt="대신부동산 상담 공간" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" style="max-width:100%;" src="대신부동산_상담_공간.jpg"/>
-          <div class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/60 to-transparent">
+        <!-- Card 2: Notice Board -->
+        <div class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl bg-slate-900">
+          <div class="w-full h-[320px] md:h-[380px] bg-slate-900 flex items-center justify-center p-2">
+            <img alt="대신부동산 내부 게시판" class="w-full h-full object-contain md:object-cover transition-transform duration-700 group-hover:scale-105 rounded-xl" src="대신부동산_내부_게시판.jpg"/>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+            <p class="text-white font-bold text-lg">최신 단지 정보 및 공인 인증서</p>
+            <p class="text-xs text-slate-300">KB부동산 시세 대표업소 지정서 게시</p>
+          </div>
+        </div>
+        <!-- Card 3: Consultation Room -->
+        <div class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl bg-slate-900">
+          <div class="w-full h-[320px] md:h-[380px] bg-slate-900 flex items-center justify-center p-2">
+            <img alt="대신부동산 상담 공간" class="w-full h-full object-contain md:object-cover transition-transform duration-700 group-hover:scale-105 rounded-xl" src="대신부동산_상담_공간.jpg"/>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent">
             <p class="text-white font-bold text-lg">가족처럼 편안한 상담 테이블</p>
+            <p class="text-xs text-slate-300">1:1 맞춤형 수치 분석 및 계약 안내</p>
           </div>
         </div>
       </div>
