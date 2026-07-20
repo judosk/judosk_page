@@ -1,0 +1,30 @@
+# User-agent directives for Web Search Engines and AI Generative Engine Crawlers
+
+User-agent: *
+Allow: /
+
+# Explicit permissions for Generative AI & RAG Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap & LLMs Context Standard Location
+Sitemap: https://judosk.vercel.app/sitemap.xml
+LLMs-Text: https://judosk.vercel.app/llms.txt
