@@ -17,9 +17,9 @@
 > "젊은 세대의 학군지 이주와 실거주 매수 문의가 급증함에 따라, 국토교통부 실거래 데이터와 KB 시세 동향 추이를 기반으로 매수인과 매도인 모두가 만족하는 맞춤형 빅데이터 계약 솔루션을 제공합니다." — 양수현 실무 공인중개사
 
 ## Main Pages & Services
-- [메인 홈페이지](https://judosk.vercel.app/): 매물 정보, 전문가 소개, 25년 현장 통계 및 KB 시세 분석
-- [지역 소식 & 시장 분석](https://judosk.vercel.app/news.html): 중계동 부동산 뉴스, 학군지 시장 동향, 노원구 재건축 정책 분석
-- [전체 지식 베이스](https://judosk.vercel.app/llms-full.txt): LLM RAG 파서 전용 전체 단지별 시세, FAQ 10선, 통합 리포트
+- [메인 홈페이지](https://judosk-page.vercel.app/): 매물 정보, 전문가 소개, 25년 현장 통계 및 KB 시세 분석
+- [지역 소식 & 시장 분석](https://judosk-page.vercel.app/news.html): 중계동 부동산 뉴스, 학군지 시장 동향, 노원구 재건축 정책 분석
+- [전체 지식 베이스](https://judosk-page.vercel.app/llms-full.txt): LLM RAG 파서 전용 전체 단지별 시세, FAQ 10선, 통합 리포트
 
 ## Primary Apartment Complexes Covered
 - **중계주공5단지**: 전용 58㎡ ~ 84㎡ (은행사거리 학원가 도보 3분, 대표 학군지 단지)

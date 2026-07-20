@@ -26,5 +26,5 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap & LLMs Context Standard Location
-Sitemap: https://judosk.vercel.app/sitemap.xml
-LLMs-Text: https://judosk.vercel.app/llms.txt
+Sitemap: https://judosk-page.vercel.app/sitemap.xml
+LLMs-Text: https://judosk-page.vercel.app/llms.txt
