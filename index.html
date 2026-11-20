@@ -34,10 +34,13 @@
       vertical-align: middle;
     }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
   <script id="tailwind-config">
@@ -46,30 +49,19 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#328af6",
+            "primary": "#2563eb",
+            "primary-bright": "#328af6",
             "surface": "#f6fafe",
-            "surface-alt": "#f9f9f9",
-            "surface-variant": "#f1f5f9",
+            "surface-alt": "#f8fafc",
+            "surface-variant": "#eef2f6",
             "on-surface": "#171c1f",
-            "ink": "#1a2128",
-            "muted-text": "#677583",
-            "hairline": "transparent",
+            "ink": "#0f172a",
+            "muted-text": "#64748b",
             "primary-tint": "#edf5ff",
             "on-primary": "#ffffff"
           },
-          borderRadius: { "DEFAULT": "12px", "lg": "12px", "xl": "12px", "full": "9999px" },
-          spacing: {
-            "md": "16px", "xl": "64px", "xs": "4px", "sm": "8px",
-            "margin-mobile": "16px", "lg": "24px", "margin-desktop": "64px",
-            "base": "8px", "gutter": "24px"
-          },
-          fontFamily: { "display-hero": ["Pretendard", "sans-serif"], "body-md": ["Pretendard", "sans-serif"] },
-          fontSize: {
-            "ui-label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
-            "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
-            "section-title": ["36px", { "lineHeight": "1.4", "fontWeight": "700" }],
-            "display-hero": ["48px", { "lineHeight": "1.3", "fontWeight": "700" }]
-          }
+          borderRadius: { "DEFAULT": "12px", "lg": "12px", "xl": "16px", "full": "9999px" },
+          fontFamily: { "sans": ["Pretendard", "sans-serif"] }
         }
       }
     }
@@ -158,562 +150,445 @@
 </head>
 
 <body class="bg-surface text-on-surface selection:bg-primary-tint selection:text-primary">
+  <!-- Header -->
   <header
-    class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-surface-variant h-16 transition-all duration-300"
+    class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 h-14 md:h-16 transition-all duration-300"
     id="main-header">
-    <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
-      <div class="text-2xl font-bold text-primary">대신부동산</div>
-      <nav class="hidden md:flex gap-xl items-center">
-        <a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">매물찾기</a>
+    <div class="flex justify-between items-center h-full px-4 md:px-10 max-w-6xl mx-auto">
+      <a href="#" class="flex items-center gap-1.5">
+        <span class="text-xl md:text-2xl font-extrabold text-primary tracking-tight">대신부동산</span>
+        <span class="hidden sm:inline-block text-[11px] font-semibold text-muted-text bg-slate-100 px-2 py-0.5 rounded-full">중계동 since 1999</span>
+      </a>
+      <nav class="hidden md:flex gap-8 items-center text-sm">
+        <a class="text-primary font-bold" href="#listings">추천 매물</a>
         <a class="text-muted-text font-medium hover:text-primary transition-colors" href="news.html">지역소식</a>
-        <a class="text-muted-text font-medium hover:text-primary transition-colors" href="#experts">전문가소개</a>
-        <a class="text-muted-text font-medium hover:text-primary transition-colors" href="#">고객후기</a>
+        <a class="text-muted-text font-medium hover:text-primary transition-colors" href="#experts">전문가·공간</a>
+        <a class="text-muted-text font-medium hover:text-primary transition-colors" href="#location">오시는 길</a>
       </nav>
-      <a class="bg-primary text-on-primary px-lg py-sm rounded-full font-bold hover:opacity-90 active:scale-95 transition-all flex items-center gap-xs shadow-lg shadow-primary/20"
+      <a class="bg-primary text-white px-3.5 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold hover:opacity-90 active:scale-95 transition-all flex items-center gap-1 shadow-md shadow-primary/25"
         href="tel:02-951-4900">
-        <span class="material-symbols-outlined text-[20px]">call</span> 상담 문의
+        <span class="material-symbols-outlined text-[18px]">call</span> 02-951-4900
       </a>
     </div>
   </header>
-  <main class="pt-16">
-    <!-- GEO RAG Optimization: LLM Key Fact & Statistics Summary Block (Visible & Parser Friendly) -->
-    <aside id="geo-summary"
-      class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white py-6 border-b border-indigo-900 shadow-inner"
-      aria-label="Generative Engine Summary">
-      <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span
-                class="bg-primary/30 text-primary-tint border border-primary/40 text-[11px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">GEO
-                Certified Data</span>
-              <span class="text-xs text-slate-300">인공지능(AI) 검색 및 생성형 엔진 검증 데이터</span>
-            </div>
-            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary">verified</span>
-              노원구 중계동 대신공인중개사사무소 핵심 실증 통계 (Facts & Statistics)
-            </h2>
-          </div>
-          <div class="flex items-center gap-3 text-xs text-slate-300">
-            <span>데이터 출처: <cite class="not-italic text-white font-medium">국토교통부 실거래가 시스템 & KB부동산 (2026 기준)</cite></span>
-          </div>
-        </div>
 
-        <!-- Statistics Addition Table for LLM RAG Parsing -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 text-slate-200 text-xs">
-          <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
-            <div class="text-slate-400 font-medium">업력 및 개업 연도</div>
-            <div class="text-lg font-extrabold text-white mt-0.5">25년+ <span
-                class="text-xs font-normal text-slate-300">(1999년 3월 개업)</span></div>
-            <div class="text-[11px] text-slate-400 mt-1">한자리 장기 영업 증명</div>
-          </div>
-          <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
-            <div class="text-slate-400 font-medium">누적 부동산 거래 실적</div>
-            <div class="text-lg font-extrabold text-white mt-0.5">3,850건+ <span
-                class="text-xs font-normal text-slate-300">누적 체결</span></div>
-            <div class="text-[11px] text-slate-400 mt-1">매매·전월세 무사고 중개</div>
-          </div>
-          <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
-            <div class="text-slate-400 font-medium">KB부동산 시세조사 업소</div>
-            <div class="text-lg font-extrabold text-white mt-0.5">12년 연속 <span
-                class="text-xs font-normal text-slate-300">대표 자격</span></div>
-            <div class="text-[11px] text-slate-400 mt-1">공식 주공5단지 시세 산정</div>
-          </div>
-          <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
-            <div class="text-slate-400 font-medium">손해보상 공제보험</div>
-            <div class="text-lg font-extrabold text-white mt-0.5">2억 원 <span
-                class="text-xs font-normal text-slate-300">가입 보장</span></div>
-            <div class="text-[11px] text-slate-400 mt-1">계약서 20년 보관 시스템</div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <section
-      class="relative min-h-[650px] md:min-h-[700px] flex flex-col justify-end md:justify-center overflow-hidden py-xl">
+  <main class="pt-14 md:pt-16">
+    <!-- 1. Hero Section: 첫 화면 즉시 임팩트 -->
+    <section class="relative min-h-[430px] md:min-h-[540px] flex items-end md:items-center overflow-hidden">
       <div class="absolute inset-0 z-0">
-        <img alt="대신부동산 외관" class="w-full h-full object-cover object-[left_top] md:object-[center_top]"
-          src="대신부동산_외관.jpg" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20 md:bg-black/40"></div>
+        <img alt="대신부동산 외관" class="w-full h-full object-cover object-center" src="대신부동산_외관.jpg" />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/92 via-slate-950/55 to-slate-950/25 md:bg-gradient-to-r md:from-slate-950/88 md:via-slate-950/55 md:to-slate-950/20"></div>
       </div>
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop relative z-10 pt-48 md:pt-0">
-        <div class="max-w-lg glass-card p-lg rounded-2xl shadow-xl mt-auto md:mt-0">
-          <div class="flex flex-wrap gap-xs mb-sm">
-            <span
-              class="inline-block bg-primary text-white font-bold px-sm py-xs rounded-full text-[11px] md:text-xs">중계동
-              25년 경력(since 1999)</span>
-            <span
-              class="inline-block bg-orange-500 text-white font-bold px-sm py-xs rounded-full text-[11px] md:text-xs">★12년
-              연속 KB부동산 시세조사 대표업소</span>
-            <span
-              class="inline-block bg-green-600 text-white font-bold px-sm py-xs rounded-full text-[11px] md:text-xs">★한국공인중개사협회
-              중계동 분회장</span>
-            <span
-              class="inline-block bg-purple-600 text-white font-bold px-sm py-xs rounded-full text-[11px] md:text-xs">은행사거리
-              학군지 전문</span>
+      <div class="w-full max-w-6xl mx-auto px-4 md:px-10 relative z-10 py-8 md:py-16">
+        <div class="max-w-xl">
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            <span class="bg-primary text-white font-bold px-2.5 py-1 rounded-full text-[11px] shadow-sm">중계동 25년(since 1999)</span>
+            <span class="bg-amber-500 text-white font-bold px-2.5 py-1 rounded-full text-[11px] shadow-sm">★ KB시세조사 12년 연속</span>
+            <span class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded-full text-[11px] shadow-sm">중계동 분회장</span>
+            <span class="bg-white/15 backdrop-blur-md text-white border border-white/25 font-semibold px-2.5 py-1 rounded-full text-[11px]">은행사거리 학군지 전문</span>
           </div>
-          <h1 class="font-bold text-2xl md:text-4xl text-ink mb-md leading-tight break-keep">25년 통계 데이터와 정직함으로 책임 중개합니다.
+          <h1 class="font-extrabold text-[28px] sm:text-4xl md:text-5xl text-white mb-3 leading-[1.22] tracking-tight break-keep">
+            중계동 25년,<br />데이터와 정직함으로<br class="sm:hidden" /> 책임 중개합니다.
           </h1>
-          <p class="text-sm text-muted-text mb-lg max-w-md">중계동 최장기 경력과 3,850건 이상의 실무 인수를 바탕으로, 2억 원 공제보험 및 국토교통부 실거래가
-            분석 데이터를 제공하는 신뢰의 공인중개사사무소입니다.</p>
-          <div class="flex flex-col sm:flex-row gap-md">
-            <a class="inline-block text-center bg-primary text-on-primary px-lg py-sm rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:-translate-y-1 transition-transform"
-              href="tel:02-951-4900">상담 예약하기</a>
+          <p class="text-sm md:text-base text-slate-200 mb-5 leading-relaxed break-keep max-w-md">
+            중계주공5단지 한자리 25년 · 3,850건 무사고 중개 · 2억 공제보험 가입. 은행사거리 학군지 아파트 매매·전세 전문.
+          </p>
+          <div class="flex items-center gap-2.5">
+            <a class="flex-1 sm:flex-none justify-center inline-flex items-center gap-1.5 bg-primary hover:bg-blue-600 text-white px-5 py-3.5 rounded-xl font-bold text-sm md:text-base shadow-lg shadow-blue-950/40 active:scale-95 transition-all"
+              href="tel:02-951-4900">
+              <span class="material-symbols-outlined text-[20px]">call</span> 바로 전화 상담
+            </a>
+            <a class="flex-1 sm:flex-none justify-center inline-flex items-center gap-1 bg-white/15 hover:bg-white/25 backdrop-blur-md text-white border border-white/30 px-5 py-3.5 rounded-xl font-bold text-sm md:text-base active:scale-95 transition-all"
+              href="#listings">
+              추천 매물 보기 <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- GEO Quotation Addition: Expert Direct Quotes Section -->
-    <section class="py-xl bg-white border-b border-surface-variant">
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop max-w-5xl">
-        <div class="text-center mb-lg">
-          <span class="text-primary font-bold text-xs uppercase tracking-widest block mb-1">Expert Quotations &
-            Insights</span>
-          <h2 class="text-3xl font-bold text-ink">전문가 신뢰 메시지 및 견해</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-          <!-- Quote 1: Representative Yoon Hyo-sook -->
-          <blockquote class="bg-surface-alt p-lg rounded-2xl border-l-4 border-primary relative shadow-sm">
-            <span class="material-symbols-outlined text-4xl text-primary/20 absolute top-4 right-4">format_quote</span>
-            <p class="text-ink text-sm leading-relaxed mb-4 font-medium italic">
-              "중계동 아파트 시장은 은행사거리 학군과 생활 인프라가 가격 형성에 절대적인 영향을 미칩니다. 1999년부터 25년간 한자리에서 중계주공 단지의 모든 실거래 변화를 기록해 온 경험으로, 단
-              1건의 사고 없는 투명한 계약만을 중개합니다."
-            </p>
-            <footer class="flex items-center gap-md pt-md border-t border-slate-200">
-              <img class="w-12 h-12 rounded-full object-cover border-2 border-primary" src="윤효숙 대표.jpg" alt="윤효숙 대표" />
-              <div>
-                <cite class="not-italic font-bold text-ink block">윤효숙 대표 공인중개사</cite>
-                <span class="text-xs text-muted-text">전 한국공인중개사협회 중계동 분회장 / KB부동산 시세조사위원</span>
-              </div>
-            </footer>
-          </blockquote>
-
-          <!-- Quote 2: Agent Yang Soo-hyun -->
-          <blockquote class="bg-surface-alt p-lg rounded-2xl border-l-4 border-indigo-600 relative shadow-sm">
-            <span
-              class="material-symbols-outlined text-4xl text-indigo-600/20 absolute top-4 right-4">format_quote</span>
-            <p class="text-ink text-sm leading-relaxed mb-4 font-medium italic">
-              "젊은 세대의 학군지 이주와 실거주 매수 문의가 급증함에 따라, 국토교통부 실거래 데이터와 KB 시세 동향 추이를 기반으로 매수인과 매도인 모두가 만족하는 맞춤형 빅데이터 계약 솔루션을
-              제공합니다."
-            </p>
-            <footer class="flex items-center gap-md pt-md border-t border-slate-200">
-              <img class="w-12 h-12 rounded-full object-cover border-2 border-indigo-600" src="양수현 실장.jpg"
-                alt="양수현 실장" />
-              <div>
-                <cite class="not-italic font-bold text-ink block">양수현 실무 공인중개사</cite>
-                <span class="text-xs text-muted-text">은행사거리 학군지 · 실거래 데이터 전문 컨설턴트</span>
-              </div>
-            </footer>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- GEO Semantic Table: Apartment Market Statistics Data -->
-    <section class="py-xl bg-surface-alt">
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop max-w-6xl">
-        <div class="text-center mb-xl">
-          <span class="text-primary font-bold text-xs uppercase tracking-widest block mb-1">Verified Data &
-            Analytics</span>
-          <h2 class="text-3xl font-bold text-ink mb-xs">중계동 주요 단지 정밀 실거래 분석 (Statistics)</h2>
-          <p class="text-body-md text-muted-text">국토교통부 실거래가 공개시스템 및 KB부동산 시세 데이터를 바탕으로 작성된 정량 자료입니다.</p>
-        </div>
-
-        <div class="overflow-x-auto bg-white rounded-2xl shadow-md border border-surface-variant">
-          <table class="w-full text-left border-collapse text-sm">
-            <thead>
-              <tr class="bg-slate-900 text-white font-bold">
-                <th class="p-lg">단지명</th>
-                <th class="p-lg">전용면적</th>
-                <th class="p-lg">최근 매매 실거래가 Range</th>
-                <th class="p-lg">전세가율 (Avg)</th>
-                <th class="p-lg">학군 접근성</th>
-                <th class="p-lg">대신부동산 분석 코멘트</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-surface-variant text-ink">
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-lg font-bold">중계주공5단지</td>
-                <td class="p-lg">58㎡ ~ 84㎡</td>
-                <td class="p-lg font-semibold text-primary">7억 8,000만 ~ 11억 8,000만 원</td>
-                <td class="p-lg">57.2%</td>
-                <td class="p-lg text-xs font-semibold text-green-700 bg-green-50 px-2 py-1 rounded inline-block">은행사거리
-                  도보 3분</td>
-                <td class="p-lg text-xs text-muted-text">복합정비구역 지정·재건축 추진 및 동북선(2028.8 예정) 핵심 대단지</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-lg font-bold">중계주공4단지</td>
-                <td class="p-lg">45㎡ ~ 59㎡</td>
-                <td class="p-lg font-semibold text-primary">5억 4,000만 ~ 7억 7,300만 원</td>
-                <td class="p-lg">52.5%</td>
-                <td class="p-lg text-xs font-semibold text-green-700 bg-green-50 px-2 py-1 rounded inline-block">원광초·중계중
-                  인접</td>
-                <td class="p-lg text-xs text-muted-text">2026년 9월 재건축 추진위 승인·소형 실거주 입문 최선호 단지</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-lg font-bold">중계건영3차</td>
-                <td class="p-lg">84㎡ (단일)</td>
-                <td class="p-lg font-semibold text-primary">13억 ~ 13억 9,000만 원</td>
-                <td class="p-lg">65.3%</td>
-                <td class="p-lg text-xs font-semibold text-green-700 bg-green-50 px-2 py-1 rounded inline-block">학원가 직통
-                  단지</td>
-                <td class="p-lg text-xs text-muted-text">은행사거리 학군 수요 집중·전세가율 탄탄한 31평 단일 대장 단지</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="p-lg font-bold">중계청구3차</td>
-                <td class="p-lg">84㎡ (단일)</td>
-                <td class="p-lg font-semibold text-primary">13억 8,000만 ~ 14억 6,000만 원</td>
-                <td class="p-lg">58.1%</td>
-                <td class="p-lg text-xs font-semibold text-green-700 bg-green-50 px-2 py-1 rounded inline-block">은행사거리
-                  초인접</td>
-                <td class="p-lg text-xs text-muted-text">동북선 은행사거리역·학원가 핵심 입지의 중계동 대표 리딩 단지</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="text-right text-xs text-muted-text mt-sm">
-          * 출처: <cite class="not-italic text-slate-700">국토교통부 실거래가 공개시스템 & KB부동산 (2026년 11월 기준)</cite>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-xl bg-surface-alt">
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="text-center mb-xl">
-          <h2 class="text-3xl font-bold text-ink mb-md">대신부동산 외관 및 전문 상담 공간</h2>
-          <p class="text-body-md text-muted-text">중계동 중계주공5단지 1상가 104호, 25년 전통 대신부동산의 전경과 내부를 소개합니다.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-lg max-w-6xl mx-auto">
-          <!-- Card 1: Exterior Signboard Photo (Full view on Mobile) -->
-          <div
-            class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl bg-slate-900 flex flex-col justify-center">
-            <div class="w-full h-[320px] md:h-[380px] bg-slate-900 flex items-center justify-center p-2">
-              <img alt="대신부동산 외관 및 간판 전경"
-                class="w-full h-full object-contain md:object-cover transition-transform duration-700 group-hover:scale-105 rounded-xl"
-                src="대신부동산_외관.jpg" />
-            </div>
-            <div
-              class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-              <p class="text-white font-bold text-lg">대신부동산 전면 간판 및 외관</p>
-              <p class="text-xs text-slate-300">중계주공5단지 1상가 104호</p>
+    <!-- 2. Compact Trust Metrics Bar: 핵심 신뢰 지표 1줄 압축 -->
+    <section class="bg-slate-900 text-white border-b border-slate-800">
+      <div class="max-w-6xl mx-auto px-4 md:px-10 py-4 md:py-5">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+          <div class="flex items-center gap-2.5 bg-white/5 md:bg-transparent p-2.5 md:p-0 rounded-xl">
+            <span class="material-symbols-outlined text-primary-bright text-2xl shrink-0">workspace_premium</span>
+            <div>
+              <div class="text-base md:text-xl font-extrabold leading-tight">25년+</div>
+              <div class="text-[11px] text-slate-400">1999년 개업 · 한자리</div>
             </div>
           </div>
-          <!-- Card 2: Notice Board & Commendation / Map -->
-          <div
-            class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl bg-slate-900">
-            <div class="w-full h-[320px] md:h-[380px] bg-slate-900 flex items-center justify-center p-2">
-              <img alt="대신부동산 내부 게시판"
-                class="w-full h-full object-contain md:object-cover transition-transform duration-700 group-hover:scale-105 rounded-xl"
-                src="대신부동산_내부_게시판.jpg" />
-            </div>
-            <div
-              class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-              <p class="text-white font-bold text-lg">최신 단지 정보 및 공인 인증서</p>
-              <p class="text-xs text-slate-300">표창장 및 단지안내도</p>
+          <div class="flex items-center gap-2.5 bg-white/5 md:bg-transparent p-2.5 md:p-0 rounded-xl">
+            <span class="material-symbols-outlined text-emerald-400 text-2xl shrink-0">handshake</span>
+            <div>
+              <div class="text-base md:text-xl font-extrabold leading-tight">3,850건+</div>
+              <div class="text-[11px] text-slate-400">누적 무사고 거래 체결</div>
             </div>
           </div>
-          <!-- Card 3: Consultation Room -->
-          <div
-            class="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl bg-slate-900">
-            <div class="w-full h-[320px] md:h-[380px] bg-slate-900 flex items-center justify-center p-2">
-              <img alt="대신부동산 상담 공간"
-                class="w-full h-full object-contain md:object-cover transition-transform duration-700 group-hover:scale-105 rounded-xl"
-                src="대신부동산_상담_공간.jpg" />
+          <div class="flex items-center gap-2.5 bg-white/5 md:bg-transparent p-2.5 md:p-0 rounded-xl">
+            <span class="material-symbols-outlined text-amber-400 text-2xl shrink-0">verified</span>
+            <div>
+              <div class="text-base md:text-xl font-extrabold leading-tight">12년 연속</div>
+              <div class="text-[11px] text-slate-400">KB 시세조사 대표업소</div>
             </div>
-            <div
-              class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-              <p class="text-white font-bold text-lg">가족처럼 편안한 상담 테이블</p>
-              <p class="text-xs text-slate-300">1:1 맞춤형 수치 분석 및 계약 안내</p>
+          </div>
+          <div class="flex items-center gap-2.5 bg-white/5 md:bg-transparent p-2.5 md:p-0 rounded-xl">
+            <span class="material-symbols-outlined text-sky-400 text-2xl shrink-0">shield</span>
+            <div>
+              <div class="text-base md:text-xl font-extrabold leading-tight">2억 원</div>
+              <div class="text-[11px] text-slate-400">공제보험 · 20년 보관</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-xl container mx-auto px-margin-mobile md:px-margin-desktop">
-      <div class="flex justify-between items-end mb-xl">
+    <!-- 3. 추천 매물: 모바일 가로 스와이프 / PC 깔끔한 그리드 -->
+    <section id="listings" class="py-10 md:py-16 max-w-6xl mx-auto px-4 md:px-10">
+      <div class="flex justify-between items-end mb-5 md:mb-8">
         <div>
-          <h2 class="text-3xl font-bold text-ink mb-xs">추천 매물</h2>
-          <p class="text-body-md text-muted-text">대신부동산이 직접 검수한 네이버부동산 집주인 확인매물입니다. (2026.11.20 기준)</p>
+          <span class="text-primary font-bold text-[11px] uppercase tracking-wider block mb-0.5">Verified Listings</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-ink">대신부동산 추천 매물</h2>
+          <p class="text-xs md:text-sm text-muted-text mt-0.5">네이버부동산 집주인 확인매물 · 2026.11.20 기준</p>
         </div>
-        <a class="text-primary font-bold flex items-center gap-xs group" href="tel:02-951-4900">
-          매물 문의 <span
-            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        <a class="text-primary font-bold text-xs md:text-sm flex items-center gap-0.5 shrink-0" href="tel:02-951-4900">
+          매물 문의 <span class="material-symbols-outlined text-[18px]">chevron_right</span>
         </a>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-        <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
-          <div class="relative h-64 overflow-hidden">
-            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+
+      <!-- 모바일 가로 스와이프 안내 -->
+      <div class="flex items-center justify-between text-[11px] text-muted-text mb-2.5 md:hidden">
+        <span>총 <strong class="text-primary">5건</strong>의 집주인 확인매물</span>
+        <span class="flex items-center gap-0.5 font-medium text-primary">옆으로 넘겨보기 <span class="material-symbols-outlined text-[14px]">swipe_left</span></span>
+      </div>
+
+      <!-- 대표 매물 5건: 모바일 가로 슬라이드 / PC 3+2 깔끔 배치 -->
+      <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-2">
+        <!-- 매물 1: 중계주공5단지 501동 -->
+        <a href="tel:02-951-4900" class="w-[82vw] max-w-[310px] md:w-auto md:max-w-none shrink-0 snap-start bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-slate-100 flex flex-col group">
+          <div class="relative h-44 md:h-48 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
               style="background-image:url('주공5단지.png')"></div>
-            <div class="absolute top-md left-md flex gap-xs">
-              <span class="bg-primary text-white px-sm py-xs rounded font-bold text-xs">특올수리</span>
-              <span class="bg-emerald-600 text-white px-sm py-xs rounded font-bold text-xs">집주인 확인</span>
+            <div class="absolute top-3 left-3 flex gap-1.5">
+              <span class="bg-primary text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">특올수리</span>
+              <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
             </div>
+            <span class="absolute bottom-2.5 right-2.5 bg-black/65 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded">확인 2026.11.20</span>
           </div>
-          <div class="p-lg">
-            <div class="flex items-center justify-between text-muted-text text-xs mb-xs">
-              <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-sm">location_on</span> 중계주공5단지 501동</span>
-              <span class="text-rose-500 font-semibold">확인 2026.11.20</span>
-            </div>
-            <h3 class="text-2xl font-bold text-ink mb-xs">매매 6억 3,000</h3>
-            <p class="text-xs text-muted-text mb-md line-clamp-1">특올수리 · 초품아 · 동북선 경전철 출구 앞동</p>
-            <div class="grid grid-cols-3 border-t border-surface-variant pt-md text-center">
-              <div>
-                <p class="text-muted-text text-xs">전용면적</p>
-                <p class="font-bold text-ink">44.52㎡</p>
-              </div>
-              <div class="border-x border-surface-variant">
-                <p class="text-muted-text text-xs">층수</p>
-                <p class="font-bold text-ink">5/15층</p>
-              </div>
-              <div>
-                <p class="text-muted-text text-xs">방향</p>
-                <p class="font-bold text-ink">남향</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
-          <div class="relative h-64 overflow-hidden">
-            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-              style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5-RJnpyJsxaiR7Af5BSkb0ouwBEqNzxuej4puN9eqmZkdSm65nu-wKu4yMAHYDX2Z8oREvxyrVwJmkUpZqr_NFudeA3J0KD-Qlo-9s9ohyhtV2_RfcHJEIwLf7J9PSat_YQJOIPSTexKRBz5EBjKIbRrbFme24ycZSqXKHbQ1TdOOXO4heTt48keWN0ZqOi2615dO19uQ63CVZpaRjAPmvLMAzb4BiGfKPCFv5PIq3cFqxc287_eg46yOREXNvr1FaaqaxD46xjc2')">
-            </div>
-            <div class="absolute top-md left-md flex gap-xs">
-              <span class="bg-green-600 text-white px-sm py-xs rounded font-bold text-xs">재건축</span>
-              <span class="bg-emerald-600 text-white px-sm py-xs rounded font-bold text-xs">집주인 확인</span>
-            </div>
-          </div>
-          <div class="p-lg">
-            <div class="flex items-center justify-between text-muted-text text-xs mb-xs">
-              <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-sm">location_on</span> 중계주공4단지 402동</span>
-              <span class="text-rose-500 font-semibold">확인 2026.11.20</span>
-            </div>
-            <h3 class="text-2xl font-bold text-ink mb-xs">매매 7억 8,000</h3>
-            <p class="text-xs text-muted-text mb-md line-clamp-1">동북선 출구 앞 · 원광초·중계중 · 주인거주 올수리</p>
-            <div class="grid grid-cols-3 border-t border-surface-variant pt-md text-center">
-              <div>
-                <p class="text-muted-text text-xs">전용면적</p>
-                <p class="font-bold text-ink">59.39㎡</p>
-              </div>
-              <div class="border-x border-surface-variant">
-                <p class="text-muted-text text-xs">층수</p>
-                <p class="font-bold text-ink">15/15층</p>
-              </div>
-              <div>
-                <p class="text-muted-text text-xs">방향</p>
-                <p class="font-bold text-ink">남향</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all group">
-          <div class="relative h-64 overflow-hidden">
-            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-              style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5qDHSq-NsqzFQCQm3ErIHEpUN6wmyMTCyKCSVeaKxLkNP-Irp12YTYxOsxKzlTwfg2WufMSJsMg99k-di1X7guEi2GH3kF5AJzvaXeSpY8zw5ekQ6chWDrts3JloVXFMfUV_AwMrixoJYHlNa4GrAaXQYlcaT_818iNgI6goA6NPnTmn1vPmD-p0f2pOhB4u5S0Fp0DEI2JudLTG10lJYxM1w_NyMAe7ln3xd-j2D8rmAB_Hi28xtl_hbUYVQDI-FsDaLukJrVRX6')">
-            </div>
-            <div class="absolute top-md left-md flex gap-xs">
-              <span class="bg-orange-500 text-white px-sm py-xs rounded font-bold text-xs">학군인기</span>
-              <span class="bg-emerald-600 text-white px-sm py-xs rounded font-bold text-xs">집주인 확인</span>
-            </div>
-          </div>
-          <div class="p-lg">
-            <div class="flex items-center justify-between text-muted-text text-xs mb-xs">
-              <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-sm">location_on</span> 중계동 건영3차 303동</span>
-              <span class="text-rose-500 font-semibold">확인 2026.11.20</span>
-            </div>
-            <h3 class="text-2xl font-bold text-ink mb-xs">매매 13억</h3>
-            <p class="text-xs text-muted-text mb-md line-clamp-1">을지학군 · 명문학원가 · 빠른입주 가능 · 주차편한동</p>
-            <div class="grid grid-cols-3 border-t border-surface-variant pt-md text-center">
-              <div>
-                <p class="text-muted-text text-xs">전용면적</p>
-                <p class="font-bold text-ink">84.9㎡</p>
-              </div>
-              <div class="border-x border-surface-variant">
-                <p class="text-muted-text text-xs">층수</p>
-                <p class="font-bold text-ink">4/15층</p>
-              </div>
-              <div>
-                <p class="text-muted-text text-xs">방향</p>
-                <p class="font-bold text-ink">동향</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 추가 네이버부동산 확인매물 (2열) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-gutter">
-        <div class="bg-white rounded-2xl p-lg shadow-md hover:shadow-xl transition-all border border-surface-variant">
-          <div class="flex items-center justify-between mb-sm">
-            <div class="flex items-center gap-xs">
-              <span class="bg-indigo-600 text-white px-sm py-xs rounded font-bold text-xs">올수리</span>
-              <span class="bg-emerald-600 text-white px-sm py-xs rounded font-bold text-xs">집주인 확인</span>
-            </div>
-            <span class="text-rose-500 font-semibold text-xs">확인 2026.11.20</span>
-          </div>
-          <div class="flex items-center gap-xs text-muted-text text-xs mb-xs">
-            <span class="material-symbols-outlined text-sm">location_on</span> 중계동 염광 102동
-          </div>
-          <h3 class="text-2xl font-bold text-ink mb-xs">매매 9억</h3>
-          <p class="text-xs text-muted-text mb-md">올수리 · 주인거주 · 상계역세권 · 입주일 협의 가능 · 융자없음</p>
-          <div class="grid grid-cols-3 border-t border-surface-variant pt-md text-center">
+          <div class="p-4 flex-1 flex flex-col justify-between">
             <div>
-              <p class="text-muted-text text-xs">전용면적</p>
-              <p class="font-bold text-ink">84.5㎡</p>
+              <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+                <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계주공5단지 501동
+              </div>
+              <h3 class="text-xl md:text-2xl font-extrabold text-ink mb-1">매매 6억 3,000</h3>
+              <p class="text-xs text-muted-text mb-3 line-clamp-1">특올수리 · 초품아 · 동북선 경전철 출구 앞동</p>
             </div>
-            <div class="border-x border-surface-variant">
-              <p class="text-muted-text text-xs">층수</p>
-              <p class="font-bold text-ink">2/19층</p>
-            </div>
-            <div>
-              <p class="text-muted-text text-xs">방향</p>
-              <p class="font-bold text-ink">남향</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl p-lg shadow-md hover:shadow-xl transition-all border border-surface-variant">
-          <div class="flex items-center justify-between mb-sm">
-            <div class="flex items-center gap-xs">
-              <span class="bg-amber-500 text-white px-sm py-xs rounded font-bold text-xs">로얄층·올수리</span>
-              <span class="bg-emerald-600 text-white px-sm py-xs rounded font-bold text-xs">집주인 확인</span>
-            </div>
-            <span class="text-rose-500 font-semibold text-xs">확인 2026.11.20</span>
-          </div>
-          <div class="flex items-center gap-xs text-muted-text text-xs mb-xs">
-            <span class="material-symbols-outlined text-sm">location_on</span> 중계주공2단지 207동
-          </div>
-          <h3 class="text-2xl font-bold text-ink mb-xs">매매 4억 6,000</h3>
-          <p class="text-xs text-muted-text mb-md">로얄층 · 나비공원 옆 · 올수리 · 조용한동 · 상계역 도보 8분</p>
-          <div class="grid grid-cols-3 border-t border-surface-variant pt-md text-center">
-            <div>
-              <p class="text-muted-text text-xs">전용면적</p>
-              <p class="font-bold text-ink">44.52㎡</p>
-            </div>
-            <div class="border-x border-surface-variant">
-              <p class="text-muted-text text-xs">층수</p>
-              <p class="font-bold text-ink">7/15층</p>
-            </div>
-            <div>
-              <p class="text-muted-text text-xs">방향</p>
-              <p class="font-bold text-ink">남향</p>
+            <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+              <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">44.52㎡</p></div>
+              <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">5/15층</p></div>
+              <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">남향</p></div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="board-preview-section" class="py-xl bg-primary-tint" style="display:none;">
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex justify-between items-end mb-xl">
-          <div>
-            <h2 class="text-3xl font-bold text-ink mb-xs">최신 소식</h2>
-            <p class="text-body-md text-muted-text">대신부동산이 전하는 최신 부동산 뉴스와 지역 소식입니다.</p>
-          </div>
-          <a class="text-primary font-bold flex items-center gap-xs group" href="news.html">
-            전체 게시글 보기 <span
-              class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </a>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter" id="board-preview"></div>
-        <div class="text-center mt-xl">
-          <a class="inline-flex items-center gap-xs bg-primary text-white px-xl py-md rounded-xl font-bold hover:-translate-y-1 transition-transform shadow-lg"
-            href="news.html">
-            전체 게시글 보기 <span class="material-symbols-outlined">arrow_forward</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-xl bg-surface-variant relative overflow-hidden">
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop text-center relative z-10">
-        <h2 class="text-4xl font-bold text-ink mb-md">지금 바로 전문가와 상담하세요</h2>
-        <p class="text-lg text-muted-text mb-xl max-w-2xl mx-auto">중계동 최장기 경력과 최다 실무 경험을 바탕으로<br />고객님의 자산을 가장 소중하게
-          중개합니다.</p>
-        <a class="inline-flex items-center gap-md bg-primary text-white px-xl py-lg rounded-full text-2xl font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all"
-          href="tel:02-951-4900">
-          <span class="material-symbols-outlined text-[32px]">call</span> 02-951-4900
         </a>
-        <div class="mt-xl flex flex-wrap justify-center gap-xl text-muted-text font-bold">
-          <span class="flex items-center gap-xs"><span
-              class="material-symbols-outlined text-primary">directions_car</span> 상계·중계역 픽업</span>
-          <span class="flex items-center gap-xs"><span
-              class="material-symbols-outlined text-primary">local_parking</span> 전용 주차장 완비</span>
-          <span class="flex items-center gap-xs"><span
-              class="material-symbols-outlined text-primary">verified_user</span> 2억 공제보험 가입</span>
+
+        <!-- 매물 2: 중계주공4단지 402동 -->
+        <a href="tel:02-951-4900" class="w-[82vw] max-w-[310px] md:w-auto md:max-w-none shrink-0 snap-start bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-slate-100 flex flex-col group">
+          <div class="relative h-44 md:h-48 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+              style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5-RJnpyJsxaiR7Af5BSkb0ouwBEqNzxuej4puN9eqmZkdSm65nu-wKu4yMAHYDX2Z8oREvxyrVwJmkUpZqr_NFudeA3J0KD-Qlo-9s9ohyhtV2_RfcHJEIwLf7J9PSat_YQJOIPSTexKRBz5EBjKIbRrbFme24ycZSqXKHbQ1TdOOXO4heTt48keWN0ZqOi2615dO19uQ63CVZpaRjAPmvLMAzb4BiGfKPCFv5PIq3cFqxc287_eg46yOREXNvr1FaaqaxD46xjc2')"></div>
+            <div class="absolute top-3 left-3 flex gap-1.5">
+              <span class="bg-green-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">재건축</span>
+              <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
+            </div>
+            <span class="absolute bottom-2.5 right-2.5 bg-black/65 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded">확인 2026.11.20</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+                <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계주공4단지 402동
+              </div>
+              <h3 class="text-xl md:text-2xl font-extrabold text-ink mb-1">매매 7억 8,000</h3>
+              <p class="text-xs text-muted-text mb-3 line-clamp-1">동북선 출구 앞 · 원광초·중계중 · 주인거주 올수리</p>
+            </div>
+            <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+              <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">59.39㎡</p></div>
+              <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">15/15층</p></div>
+              <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">남향</p></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- 매물 3: 중계동 건영3차 303동 -->
+        <a href="tel:02-951-4900" class="w-[82vw] max-w-[310px] md:w-auto md:max-w-none shrink-0 snap-start bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-slate-100 flex flex-col group">
+          <div class="relative h-44 md:h-48 overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+              style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5qDHSq-NsqzFQCQm3ErIHEpUN6wmyMTCyKCSVeaKxLkNP-Irp12YTYxOsxKzlTwfg2WufMSJsMg99k-di1X7guEi2GH3kF5AJzvaXeSpY8zw5ekQ6chWDrts3JloVXFMfUV_AwMrixoJYHlNa4GrAaXQYlcaT_818iNgI6goA6NPnTmn1vPmD-p0f2pOhB4u5S0Fp0DEI2JudLTG10lJYxM1w_NyMAe7ln3xd-j2D8rmAB_Hi28xtl_hbUYVQDI-FsDaLukJrVRX6')"></div>
+            <div class="absolute top-3 left-3 flex gap-1.5">
+              <span class="bg-orange-500 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">학군인기</span>
+              <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
+            </div>
+            <span class="absolute bottom-2.5 right-2.5 bg-black/65 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded">확인 2026.11.20</span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+                <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계동 건영3차 303동
+              </div>
+              <h3 class="text-xl md:text-2xl font-extrabold text-ink mb-1">매매 13억</h3>
+              <p class="text-xs text-muted-text mb-3 line-clamp-1">을지학군 · 명문학원가 · 빠른입주 가능 · 주차편한동</p>
+            </div>
+            <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+              <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">84.9㎡</p></div>
+              <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">4/15층</p></div>
+              <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">동향</p></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- 모바일 슬라이드에서만 함께 이어지는 매물 4: 염광 102동 -->
+        <a href="tel:02-951-4900" class="w-[82vw] max-w-[310px] md:hidden shrink-0 snap-start bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 flex flex-col justify-between p-5">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex gap-1.5">
+                <span class="bg-indigo-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">올수리</span>
+                <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
+              </div>
+              <span class="text-rose-500 font-semibold text-[11px]">확인 2026.11.20</span>
+            </div>
+            <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+              <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계동 염광 102동
+            </div>
+            <h3 class="text-2xl font-extrabold text-ink mb-2">매매 9억</h3>
+            <p class="text-xs text-muted-text leading-relaxed mb-4">올수리 · 주인거주 · 상계역세권 · 입주일 협의 가능 · 융자없음</p>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+            <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">84.5㎡</p></div>
+            <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">2/19층</p></div>
+            <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">남향</p></div>
+          </div>
+        </a>
+
+        <!-- 모바일 슬라이드에서만 함께 이어지는 매물 5: 중계주공2단지 207동 -->
+        <a href="tel:02-951-4900" class="w-[82vw] max-w-[310px] md:hidden shrink-0 snap-start bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 flex flex-col justify-between p-5">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex gap-1.5">
+                <span class="bg-amber-500 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">로얄층·올수리</span>
+                <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
+              </div>
+              <span class="text-rose-500 font-semibold text-[11px]">확인 2026.11.20</span>
+            </div>
+            <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+              <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계주공2단지 207동
+            </div>
+            <h3 class="text-2xl font-extrabold text-ink mb-2">매매 4억 6,000</h3>
+            <p class="text-xs text-muted-text leading-relaxed mb-4">로얄층 · 나비공원 옆 · 올수리 · 조용한동 · 상계역 도보 8분</p>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+            <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">44.52㎡</p></div>
+            <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">7/15층</p></div>
+            <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">남향</p></div>
+          </div>
+        </a>
+      </div>
+
+      <!-- PC 전용 하단 2열 추가 확인매물 (모바일 중복 방지) -->
+      <div class="hidden md:grid md:grid-cols-2 gap-6 mt-6">
+        <a href="tel:02-951-4900" class="bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex gap-1.5">
+                <span class="bg-indigo-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">올수리</span>
+                <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
+              </div>
+              <span class="text-rose-500 font-semibold text-xs">확인 2026.11.20</span>
+            </div>
+            <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+              <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계동 염광 102동
+            </div>
+            <h3 class="text-2xl font-extrabold text-ink mb-1">매매 9억</h3>
+            <p class="text-xs text-muted-text mb-4">올수리 · 주인거주 · 상계역세권 · 입주일 협의 가능 · 융자없음</p>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+            <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">84.5㎡</p></div>
+            <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">2/19층</p></div>
+            <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">남향</p></div>
+          </div>
+        </a>
+        <a href="tel:02-951-4900" class="bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition-all border border-slate-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex gap-1.5">
+                <span class="bg-amber-500 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">로얄층·올수리</span>
+                <span class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-md font-bold text-[11px]">집주인 확인</span>
+              </div>
+              <span class="text-rose-500 font-semibold text-xs">확인 2026.11.20</span>
+            </div>
+            <div class="flex items-center gap-1 text-muted-text text-xs font-medium mb-1">
+              <span class="material-symbols-outlined text-[15px] text-primary">location_on</span> 중계주공2단지 207동
+            </div>
+            <h3 class="text-2xl font-extrabold text-ink mb-1">매매 4억 6,000</h3>
+            <p class="text-xs text-muted-text mb-4">로얄층 · 나비공원 옆 · 올수리 · 조용한동 · 상계역 도보 8분</p>
+          </div>
+          <div class="grid grid-cols-3 border-t border-slate-100 pt-3 text-center text-xs">
+            <div><p class="text-muted-text text-[11px]">전용면적</p><p class="font-bold text-ink">44.52㎡</p></div>
+            <div class="border-x border-slate-100"><p class="text-muted-text text-[11px]">층수</p><p class="font-bold text-ink">7/15층</p></div>
+            <div><p class="text-muted-text text-[11px]">방향</p><p class="font-bold text-ink">남향</p></div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. 최신 지역 소식 (GitHub 게시판 연동) -->
+    <section id="board-preview-section" class="py-10 md:py-14 bg-primary-tint/70 border-y border-blue-100/70" style="display:none;">
+      <div class="max-w-6xl mx-auto px-4 md:px-10">
+        <div class="flex justify-between items-end mb-5 md:mb-7">
+          <div>
+            <span class="text-primary font-bold text-[11px] uppercase tracking-wider block mb-0.5">Local News</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-ink">중계동 최신 소식</h2>
+          </div>
+          <a class="text-primary font-bold text-xs md:text-sm flex items-center gap-0.5 shrink-0" href="news.html">
+            전체 게시글 <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </a>
+        </div>
+        <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-1" id="board-preview"></div>
+      </div>
+    </section>
+
+    <!-- 5. 전문가 & 상담 공간 통합 섹션 (중복 제거 + 모바일 가로 스와이프) -->
+    <section id="experts" class="py-10 md:py-16 bg-white">
+      <div class="max-w-6xl mx-auto px-4 md:px-10">
+        <div class="mb-6 md:mb-8">
+          <span class="text-primary font-bold text-[11px] uppercase tracking-wider block mb-0.5">Experts &amp; Office</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-ink">함께하는 전문가 &amp; 상담 공간</h2>
+          <p class="text-xs md:text-sm text-muted-text mt-1">중계주공5단지 1상가 104호 · 25년간 한자리에서 지켜온 신뢰</p>
+        </div>
+
+        <!-- 전문가 3인: 모바일 가로 스와이프 / PC 3열 -->
+        <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-2 mb-7 md:mb-10">
+          <div class="w-[78vw] max-w-[290px] md:w-auto md:max-w-none shrink-0 snap-start bg-surface-alt p-5 rounded-2xl border border-slate-100 shadow-sm">
+            <div class="flex items-center gap-3.5 mb-3">
+              <img class="w-14 h-14 rounded-full object-cover border-2 border-primary shrink-0" src="윤효숙 대표.jpg" alt="윤효숙 대표"
+                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDjU9fe8FSx3clQ2OBOtwouX0ngsyovNhwbQbii4lmKOl8rIRQ6FAkiG_E31RPxYMdtod_QVqfyK_9Tal-n_aZ2ZwxJ5t7-V9fiEVWV0bir-qRswqsHnMtg7ZGcXDL57T8FkNQmqdF9vFbo0cmy_737tUQsL3xEslQgsYJ1BdDvZvLpcjHwu_V0R7GS6sWfYaZY9WJk-ZYuei7ZDU6gnHbHfavKyVw-C9eG8PiWvLnjfn89HptY8leur1TEZ8pvIwUjgC_k6IOF6fUN'" />
+              <div>
+                <h3 class="font-extrabold text-base text-ink">윤효숙 대표</h3>
+                <p class="text-primary text-[11px] font-bold">공인중개사 · 중계동 분회장</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed break-keep">
+              "1999년부터 25년간 중계주공 단지의 모든 실거래 변화를 기록해 온 경험으로, 단 1건의 사고 없는 투명한 계약만을 중개합니다."
+            </p>
+          </div>
+
+          <div class="w-[78vw] max-w-[290px] md:w-auto md:max-w-none shrink-0 snap-start bg-surface-alt p-5 rounded-2xl border border-slate-100 shadow-sm">
+            <div class="flex items-center gap-3.5 mb-3">
+              <img class="w-14 h-14 rounded-full object-cover border-2 border-indigo-600 shrink-0" src="양수현 실장.jpg" alt="양수현 실장"
+                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAYzVd9lIHdOSurjC8lWbFm131Akv3GqJKKPYVTvN70jI2cNkXStiRQG_hte6u6iAsftWg-wVBTSpse6dFhH4SVsObkQGyqD4Z2BT-WTDycNchMxxtPdvPiO7hczd2quGRyR6TcGysOiql9akvP2B-eiHVJEQCM30k-pfpv6f9-GbQma-CJhBxeTbWM3J1T49K6rlBrFFHZ8lyUXQWMuX6tCJhJMCljwCjJy2_vVYCwVmmHa6J8C4OGp_5jkHBvMSqJ_6Vk48esqzcW'" />
+              <div>
+                <h3 class="font-extrabold text-base text-ink">양수현 실장</h3>
+                <p class="text-indigo-600 text-[11px] font-bold">공인중개사 · 실거래 데이터 분석</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed break-keep">
+              "국토교통부 실거래가와 KB시세 추이를 기반으로 매수인과 매도인 모두가 만족하는 투명하고 정직한 책임 중개를 제공합니다."
+            </p>
+          </div>
+
+          <div class="w-[78vw] max-w-[290px] md:w-auto md:max-w-none shrink-0 snap-start bg-surface-alt p-5 rounded-2xl border border-slate-100 shadow-sm">
+            <div class="flex items-center gap-3.5 mb-3">
+              <img class="w-14 h-14 rounded-full object-cover border-2 border-slate-400 shrink-0" src="총괄매니저.jpg" alt="총괄 매니저"
+                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuBBvvZ-XJzjcS3UN8vg6xRAbawJWBotI9CyaZwLE4JVo2GYlHs5oJ094OTJLHBcv_bEIAalJJuPaks86wrfPc_i4TQY36-JrEmgBdMfb8syhnJGRljaQT0z6AWv8-t1DEJdr-HYQ-GrqrujqsONBztCGa6oqRIZxYVcZEeDY-jmwqAgDTFgzx1I5xAV58NP_CwOisAp7lAO_AZy9ISIhdj31wbtgrVqsaZW_YYfF_hRQT0ZfHolBLPgy2s05wQvpKlQ3XTccvbj4z3M'" />
+              <div>
+                <h3 class="font-extrabold text-base text-ink">총괄 매니저</h3>
+                <p class="text-slate-600 text-[11px] font-bold">현장 안내 · 고객 관리 총괄</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed break-keep">
+              "상계·중계역 픽업과 신속·정확한 현장 안내로 처음 방문하시는 고객님도 편안하게 매물을 보실 수 있도록 돕습니다."
+            </p>
+          </div>
+        </div>
+
+        <!-- 매장 사진 3장: 모바일 가로 슬라이드 / PC 3열 -->
+        <div class="flex md:grid md:grid-cols-3 gap-3.5 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
+          <div class="w-[72vw] max-w-[270px] md:w-auto md:max-w-none shrink-0 snap-start relative rounded-2xl overflow-hidden shadow-md bg-slate-900 h-48 md:h-56 group">
+            <img alt="대신부동산 외관 및 간판 전경" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="대신부동산_외관.jpg" />
+            <div class="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
+              <p class="text-white font-bold text-sm">대신부동산 전면 외관</p>
+              <p class="text-[11px] text-slate-300">중계주공5단지 1상가 104호</p>
+            </div>
+          </div>
+          <div class="w-[72vw] max-w-[270px] md:w-auto md:max-w-none shrink-0 snap-start relative rounded-2xl overflow-hidden shadow-md bg-slate-900 h-48 md:h-56 group">
+            <img alt="대신부동산 내부 게시판" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="대신부동산_내부_게시판.jpg" />
+            <div class="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
+              <p class="text-white font-bold text-sm">공인 인증서 및 단지 안내도</p>
+              <p class="text-[11px] text-slate-300">표창장 및 최신 매물 현황판</p>
+            </div>
+          </div>
+          <div class="w-[72vw] max-w-[270px] md:w-auto md:max-w-none shrink-0 snap-start relative rounded-2xl overflow-hidden shadow-md bg-slate-900 h-48 md:h-56 group">
+            <img alt="대신부동산 상담 공간" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="대신부동산_상담_공간.jpg" />
+            <div class="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
+              <p class="text-white font-bold text-sm">1:1 맞춤 상담 공간</p>
+              <p class="text-[11px] text-slate-300">정확한 시세 분석 및 계약 안내</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="experts" class="py-xl bg-white">
-      <div class="container mx-auto px-margin-mobile md:px-margin-desktop text-center">
-        <h2 class="text-3xl font-bold text-ink mb-xl">함께하는 전문가</h2>
-        <div class="flex flex-wrap justify-center gap-xl">
-          <div class="bg-surface-alt p-lg rounded-2xl shadow-sm w-64 hover:-translate-y-2 transition-transform">
-            <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-md border-4 border-primary/20">
-              <img class="w-full h-full object-cover" src="윤효숙 대표.jpg" alt="윤효숙 대표"
-                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDjU9fe8FSx3clQ2OBOtwouX0ngsyovNhwbQbii4lmKOl8rIRQ6FAkiG_E31RPxYMdtod_QVqfyK_9Tal-n_aZ2ZwxJ5t7-V9fiEVWV0bir-qRswqsHnMtg7ZGcXDL57T8FkNQmqdF9vFbo0cmy_737tUQsL3xEslQgsYJ1BdDvZvLpcjHwu_V0R7GS6sWfYaZY9WJk-ZYuei7ZDU6gnHbHfavKyVw-C9eG8PiWvLnjfn89HptY8leur1TEZ8pvIwUjgC_k6IOF6fUN'" />
-            </div>
-            <h4 class="font-bold text-lg mb-xs">윤효숙 대표</h4>
-            <p class="text-primary text-xs font-bold mb-md">공인중개사 / 중계동 분회장</p>
-            <p class="text-muted-text text-xs leading-relaxed">중계동 25년 경력의 베테랑<br />한자리에서 지켜온 신뢰의 상징</p>
-          </div>
-          <div class="bg-surface-alt p-lg rounded-2xl shadow-sm w-64 hover:-translate-y-2 transition-transform">
-            <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-md border-4 border-primary/20">
-              <img class="w-full h-full object-cover" src="양수현 실장.jpg" alt="양수현 실장"
-                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuAYzVd9lIHdOSurjC8lWbFm131Akv3GqJKKPYVTvN70jI2cNkXStiRQG_hte6u6iAsftWg-wVBTSpse6dFhH4SVsObkQGyqD4Z2BT-WTDycNchMxxtPdvPiO7hczd2quGRyR6TcGysOiql9akvP2B-eiHVJEQCM30k-pfpv6f9-GbQma-CJhBxeTbWM3J1T49K6rlBrFFHZ8lyUXQWMuX6tCJhJMCljwCjJy2_vVYCwVmmHa6J8C4OGp_5jkHBvMSqJ_6Vk48esqzcW'" />
-            </div>
-            <h4 class="font-bold text-lg mb-xs">양수현 실장</h4>
-            <p class="text-primary text-xs font-bold mb-md">공인중개사 / 실무 전문가</p>
-            <p class="text-muted-text text-xs leading-relaxed">투명하고 정직한 책임 중개<br />실거래 데이터 기반 맞춤형 매물 분석</p>
-          </div>
-          <div class="bg-surface-alt p-lg rounded-2xl shadow-sm w-64 hover:-translate-y-2 transition-transform">
-            <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-md border-4 border-primary/20">
-              <img class="w-full h-full object-cover" src="총괄매니저.jpg" alt="총괄 매니저"
-                onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuBBvvZ-XJzjcS3UN8vg6xRAbawJWBotI9CyaZwLE4JVo2GYlHs5oJ094OTJLHBcv_bEIAalJJuPaks86wrfPc_i4TQY36-JrEmgBdMfb8syhnJGRljaQT0z6AWv8-t1DEJdr-HYQ-GrqrujqsONBztCGa6oqRIZxYVcZEeDY-jmwqAgDTFgzx1I5xAV58NP_CwOisAp7lAO_AZy9ISIhdj31wbtgrVqsaZW_YYfF_hRQT0ZfHolBLPgy2s05wQvpKlQ3XTccvbj4z3M'" />
-            </div>
-            <h4 class="font-bold text-lg mb-xs">총괄 매니저</h4>
-            <p class="text-primary text-xs font-bold mb-md">전체총괄 및 관리</p>
-            <p class="text-muted-text text-xs leading-relaxed">신속하고 정확한 현장 안내<br />고객 편의를 최우선으로 합니다</p>
-          </div>
+    <!-- 6. 마무리 상담 CTA: 강렬한 대비로 시선 집중 -->
+    <section class="py-10 md:py-14 px-4 md:px-10 bg-surface">
+      <div class="max-w-5xl mx-auto bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white rounded-3xl p-7 md:p-12 text-center shadow-xl">
+        <h2 class="text-2xl md:text-4xl font-extrabold mb-2.5 tracking-tight break-keep">지금 바로 전문가와 상담하세요</h2>
+        <p class="text-xs md:text-base text-slate-300 mb-6 max-w-xl mx-auto leading-relaxed break-keep">
+          중계동 최장기 경력과 최다 실무 경험을 바탕으로 고객님의 자산을 가장 소중하게 중개합니다.
+        </p>
+        <a class="inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-blue-500 text-white px-8 py-4 rounded-full text-xl md:text-2xl font-extrabold shadow-2xl shadow-blue-900/50 hover:scale-105 active:scale-95 transition-all"
+          href="tel:02-951-4900">
+          <span class="material-symbols-outlined text-[28px]">call</span> 02-951-4900
+        </a>
+        <div class="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs md:text-sm text-slate-300 font-medium">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary-bright text-[18px]">directions_car</span> 상계·중계역 픽업</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary-bright text-[18px]">local_parking</span> 전용 주차장 완비</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary-bright text-[18px]">verified_user</span> 2억 공제보험 가입</span>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-surface-alt py-xl px-margin-mobile md:px-margin-desktop">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-base">
-      <div class="flex flex-col gap-sm">
-        <div class="font-bold text-ink">대신공인중개사사무소</div>
-        <p class="text-sm text-muted-text max-w-md">서울특별시 노원구 중계동 (대신부동산) | 대표: 윤효숙 | 전화: 02-951-4900 | 사업자번호:
-          210-10-81967, 502-44-77580</p>
-        <div class="text-xs text-muted-text">© since 1998 노원구 중계동 전문 부동산. All rights reserved.</div>
+  <!-- Footer -->
+  <footer id="location" class="bg-white border-t border-slate-200 py-8 px-4 md:px-10 pb-24 md:pb-10">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div class="space-y-1">
+        <div class="font-extrabold text-ink text-base">대신공인중개사사무소</div>
+        <p class="text-xs text-muted-text leading-relaxed">
+          서울특별시 노원구 중계동 중계주공5단지 1상가 104호 | 대표: 윤효숙 | 전화: 02-951-4900<br />
+          사업자번호: 210-10-81967, 502-44-77580
+        </p>
+        <div class="text-[11px] text-slate-400">© since 1998 노원구 중계동 전문 부동산. All rights reserved.</div>
       </div>
-      <div class="flex gap-xl text-sm">
-        <a class="text-muted-text hover:text-ink transition-colors" href="#">이용약관</a>
-        <a class="text-muted-text hover:text-ink transition-colors" href="#">개인정보처리방침</a>
-        <a class="text-muted-text hover:text-ink transition-colors" href="#">찾아오시는길</a>
-        <a class="text-primary font-bold hover:text-ink transition-colors" href="admin.html" id="agent-login-btn">Agent
-          Login</a>
+      <div class="flex gap-5 text-xs">
+        <a class="text-muted-text hover:text-ink transition-colors" href="news.html">지역소식</a>
+        <a class="text-muted-text hover:text-ink transition-colors" href="#listings">추천매물</a>
+        <a class="text-primary font-bold hover:text-ink transition-colors" href="admin.html" id="agent-login-btn">Agent Login</a>
       </div>
     </div>
   </footer>
 
+  <!-- Mobile Bottom Navigation -->
   <nav
-    class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe bg-white border-t border-surface-variant shadow-lg md:hidden z-50">
+    class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-lg md:hidden z-50">
     <a class="flex flex-col items-center justify-center text-primary font-bold min-h-[44px] min-w-[44px]" href="#">
-      <span class="material-symbols-outlined">home</span><span class="text-[10px]">홈</span>
+      <span class="material-symbols-outlined text-[22px]">home</span><span class="text-[10px]">홈</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-muted-text min-h-[44px] min-w-[44px]" href="#">
-      <span class="material-symbols-outlined">apartment</span><span class="text-[10px]">매물</span>
+    <a class="flex flex-col items-center justify-center text-muted-text hover:text-primary min-h-[44px] min-w-[44px]" href="#listings">
+      <span class="material-symbols-outlined text-[22px]">apartment</span><span class="text-[10px]">매물</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-muted-text min-h-[44px] min-w-[44px]" href="news.html">
-      <span class="material-symbols-outlined">newspaper</span><span class="text-[10px]">소식</span>
+    <a class="flex flex-col items-center justify-center text-muted-text hover:text-primary min-h-[44px] min-w-[44px]" href="news.html">
+      <span class="material-symbols-outlined text-[22px]">newspaper</span><span class="text-[10px]">소식</span>
     </a>
-    <a class="flex flex-col items-center justify-center text-muted-text min-h-[44px] min-w-[44px]"
-      href="tel:02-951-4900">
-      <span class="material-symbols-outlined">call</span><span class="text-[10px]">상담</span>
+    <a class="flex flex-col items-center justify-center text-muted-text hover:text-primary min-h-[44px] min-w-[44px]" href="tel:02-951-4900">
+      <span class="material-symbols-outlined text-[22px]">call</span><span class="text-[10px]">상담</span>
     </a>
   </nav>
 
@@ -721,12 +596,10 @@
   <script>
     window.addEventListener('scroll', () => {
       const header = document.getElementById('main-header');
-      if (window.scrollY > 50) {
-        header.classList.add('shadow-lg', 'h-14');
-        header.classList.remove('h-16');
+      if (window.scrollY > 40) {
+        header.classList.add('shadow-md');
       } else {
-        header.classList.remove('shadow-lg', 'h-14');
-        header.classList.add('h-16');
+        header.classList.remove('shadow-md');
       }
     });
 
@@ -745,14 +618,14 @@
       };
       container.innerHTML = recent.map(post => {
         const colorClass = categoryColors[post.category] || 'bg-gray-100 text-gray-700';
-        const summary = markdownToText(post.content || '').slice(0, 60);
-        return `<div class="bg-white rounded-2xl p-lg shadow-md hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1" onclick="location.href='news-detail.html?id=${post.id}'">
-      <div class="flex items-center gap-sm mb-sm">
-        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${colorClass}">${escapeHtml(post.category || '소식')}</span>
-        <span class="text-xs text-muted-text">${escapeHtml(post.date || '')}</span>
+        const summary = markdownToText(post.content || '').slice(0, 65);
+        return `<div class="w-[78vw] max-w-[300px] md:w-auto md:max-w-none shrink-0 snap-start bg-white rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all cursor-pointer border border-blue-100/80" onclick="location.href='news-detail.html?id=${post.id}'">
+      <div class="flex items-center gap-2 mb-2.5">
+        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${colorClass}">${escapeHtml(post.category || '소식')}</span>
+        <span class="text-[11px] text-muted-text">${escapeHtml(post.date || '')}</span>
       </div>
-      <h3 class="font-bold text-ink mb-sm leading-snug line-clamp-2">${escapeHtml(post.title || '')}</h3>
-      <p class="text-sm text-muted-text line-clamp-2">${escapeHtml(summary)}${summary.length >= 60 ? '…' : ''}</p>
+      <h3 class="font-bold text-base text-ink mb-1.5 leading-snug line-clamp-2">${escapeHtml(post.title || '')}</h3>
+      <p class="text-xs text-muted-text line-clamp-2 leading-relaxed">${escapeHtml(summary)}${summary.length >= 65 ? '…' : ''}</p>
     </div>`;
       }).join('');
     })();
